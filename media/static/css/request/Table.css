@@ -1,0 +1,3 @@
+table tr { border-color: #000000; }
+tbody tr:nth-child(even) { background: #e8e8e8; }
+tbody tr:nth-child(odd) { color: black; }

@@ -1,0 +1,111 @@
+{% extends 'base/base.html' %}
+{% block content %}
+{% csrf_token %}
+<link rel="stylesheet" href="/media/static/css/request/jquery-ui.css">
+<link rel="stylesheet" href="/media/static/css/request/Table.css">
+<script src="/media/static/js/request/jquery-3.6.0.js"></script>
+<script src="/media/static/js/request/jquery-ui.js"></script>
+<script>
+$(function() {
+    $("#id_Customers_full_name").autocomplete({
+        source: "{% url 'autocomplete_cus' %}",
+    });
+});
+</script>
+<script>
+$(function() {
+    $("#id_Lecture_hall").autocomplete({
+        source: "{% url 'autocomplete_lec' %}",
+    });
+});
+</script>
+<br>
+<div class="card mx-3" style="width: 850px;"><h5
+        class="card-header">Search by requests:</h5>
+    <div class="card-body">
+        <h6 class="card-subtitle mb-2 text-muted">Enter one or more parameters.:</h6>
+        <div class="d-flex">
+            <form method="get">
+                <div class="row">
+                    <div class="col">
+                        <input class="form-control" type="number" name="id" id="id_id" placeholder="ID"
+                               aria-label="default input example">
+                    </div>
+                    <div class="col">
+                        <input class="form-control" type="text" name="Customers_full_name" id="id_Customers_full_name"
+                               placeholder="Customer" aria-label="default input example">
+                    </div>
+                    <div class="col">
+                        <input class="form-control" type="text" name="Lecture_hall" id="id_Lecture_hall"
+                               placeholder="Office"
+                               aria-label="default input example">
+                    </div>
+                    <div class="col">
+                        <select name="Condition"
+                                class="form-select"
+                                style="width: 200px;"
+                                id="id_Condition">
+                        <option value="" selected="">All requests</option>
+                        {% for item in condition %}
+                            <option value="{{ item.id }}">{{ item.Condition }}</option>
+                        {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col mx-3">
+                        <button class="btn btn-primary" type="submit">Search</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<br>
+<div class="content mx-3">
+    <h2>
+        List of requests
+    </h2>
+    <br>
+    <!---------Таблица начало---------->
+    <table id="table" class="table table-bordered">
+        <thead>
+        <!---------Заголовки----------->
+            <tr>
+                <th>ID</th>
+                <th>Customer</th>
+                <th>Office</th>
+                <th>Description</th>
+                <th>Type of work</th>
+                <th>Request date</th>
+                <th>Executor</th>
+                <th>Comment</th>
+                <th>Condition</th>
+                <th>Files</th>
+            </tr>
+        </thead>
+        <!----------------------------->
+        <!-----------Ячейки таблицы---->
+        <tbody>
+            {% for item in page_obj %}
+            <tr>
+                <td><a href="{{ item.id }}/update">{{ item.id }}</a></td>
+                <td>{{ item.Customers_full_name }}</td>
+                <td>{{ item.Lecture_hall }}</td>
+                <td>{{ item.Description }}</td>
+                <td>{{ item.Work.Type_of_work }}</td>
+                <td>{{ item.Request_date }}</td>
+                <td>{{ item.Performer.Full_name_of_the_performer }}</td>
+                <td>{{ item.Comment }}</td>
+                <td>{{ item.Condition }}</td>
+                {% load static %}
+                    <td><a href="media/{{ item.Files }}" target="_blank">{{item.Files}}</a></td>
+            </tr>
+                {% endfor %}
+        </tbody>
+    </table>
+    <br>
+    {% include 'request/pagination.html' %}
+    <br>
+    <div style="height: 30px;"></div>
+</div>
+<!--------------------------------->
+{% endblock %}

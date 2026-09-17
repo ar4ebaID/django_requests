@@ -1,0 +1,25 @@
+---forms.py---
+from .models import *
+from django.forms import ModelForm
+from django import forms
+
+
+class Create(ModelForm):
+    class Meta:
+        model = Request
+        fields = ('Customers_full_name', 'Lecture_hall', 'Description', 'Work', 'Performer', 'Comment', 'Files',
+                  'Condition')
+
+
+#    def __init__(self, *args, **kwargs):
+#        super(Create, self).__init__(*args, **kwargs)
+#        for field in self.fields.values():
+#            field.widget.attrs = {'class': 'form-control'}
+--------------
+
+---views.py---
+class RequestUpdate(UpdateView):
+    model = Request
+    template_name = 'update/update_view.html'
+    form_class = Create
+-------------

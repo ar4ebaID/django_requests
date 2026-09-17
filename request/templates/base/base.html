@@ -1,0 +1,73 @@
+{% load poll_extras %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="/media/static/img/favicon.ico" sizes="any"/>
+    <link rel="manifest" href="media/static/img/site.webmanifest">
+    <meta name="theme-color" content="#FFFFFF">
+    <link href="/media/static/css/base/bootstrap.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>Request Tracking</title>
+</head>
+<body>
+<style>
+    .nav {
+        position: fixed;
+    }
+</style>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand mx-" href="/"><h3>Requests</h3></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
+                aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarScroll">
+            <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+                <li class="nav-item">
+                    <a class="link-primary" style="margin-left:40px;" aria-current="page" href="/create"> <u>Add request</u> </a>
+                </li>
+                <li class="nav-item">
+                    <a class="link-primary" style="margin-left:30px;" aria-current="page" href="/report"> <u>Report</u>
+                    </a>
+                </li>
+            </ul>
+            <form class="d-flex">
+                <div class="mx-4">
+                    {% if request.user|has_group:"admins" %}
+                    <div class="col">
+                        <h5>
+                                <span class="badge bg-primary"> <a href="/admin"
+                                                                   style="color: #FFFFFF; text-decoration: none; font-weight: normal;">
+                                    Admin panel
+                                </a></span>
+                        </h5>
+                    </div>
+                    {% endif %}
+                </div>
+                {% if request.user.is_authenticated %}
+                <h5>
+                    <span class="badge bg-success"> <a href="/logout" style="color: #FFFFFF; text-decoration: none;">
+                        {{ user.username }} <a href="/logout"
+                                               style="color: #FFFFFF; text-decoration: none; font-weight: normal;">
+                        | Exit
+                    </a>
+                    </a></span>
+                </h5>
+                {% else %}
+                <ul class="nav justify-content-end">
+                    <h5>
+                    <span class="badge bg-danger"> <a href="/login" style="color: #FFFFFF; text-decoration: none;">
+                        Login
+                    </a></span>
+                    </h5>
+                </ul>
+                {% endif %}
+            </form>
+        </div>
+    </div>
+</nav>
+{% block content %}
+{% endblock %}
+</body>
+</html>

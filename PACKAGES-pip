@@ -1,0 +1,11 @@
+django
+django-filter
+django-import-export
+django-simple-history
+psycopg2-binary
+python-telegram-bot
+xlwt
+celery
+celery-types
+redis
+flower

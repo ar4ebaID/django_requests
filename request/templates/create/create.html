@@ -1,0 +1,137 @@
+{% extends 'base/base.html' %}
+{% block content %}
+<link rel="stylesheet" href="/media/static/css/request/jquery-ui.css">
+<script src="/media/static/js/request/jquery-3.6.0.js"></script>
+<script src="/media/static/js/request/jquery-ui.js"></script>
+<script>
+$( function() {
+    $( "#id_Customers_full_name" ).autocomplete({
+        source: "{% url 'autocomplete_cus' %}",
+    });
+});
+</script>
+<script>
+$( function() {
+    $( "#id_Lecture_hall" ).autocomplete({
+        source: "{% url 'autocomplete_lec' %}",
+    });
+});
+</script>
+<br>
+<div class="mx-3">
+    <h2>
+        Create a request
+    </h2>
+    <br>
+    <a style="font-weight: bold;"><h7>Fields marked</h7></a>
+    <a style="font-weight: bold;"><h7>"<a style="color:red; font-weight: bold;">*</a><a style="font-weight: bold;">",
+    </a>
+    </h7></a><a style="font-weight: bold;"><h7>required to be filled out!</h7></a>
+    <br>
+    <br>
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <p>
+            <label for="id_Customers_full_name">Customer<h7><a style="color:red;">*</a></h7>:</label>
+            <input type="text"
+                   class="form-control"
+                   style="width: 500px;"
+                   name="Customers_full_name"
+                   maxlength="50"
+                   required=""
+                   id="id_Customers_full_name"
+            placeholder="Enter the customer’s full name">
+        </p>
+        <p>
+            <label for="id_Lecture_hall">Office<h7><a style="color:red;">*</a></h7>:</label>
+            <input type="text"
+                   class="form-control"
+                   style="width: 200px;"
+                   name="Lecture_hall"
+                   maxlength="10"
+                   required
+                   id="id_Lecture_hall"
+                   placeholder="Office number">
+        </p>
+        <p>
+            <label for="id_Description" class="form-label">Description</label>
+            <textarea name="Description"
+                      class="form-control"
+                      style="width: 500px; resize: none;"
+                      cols="50"
+                      rows="3"
+                      style="resize:none;"
+                      maxlength="150"
+                      id="id_Description"
+                      placeholder="Brief description of the problem"></textarea>
+        </p>
+        <p>
+            <label for="id_Work">Type of work carried out<h7><a style="color:red;">*</a></h7>:</label>
+            <select name="Work"
+                    class="form-select"
+                    style="width: 400px;"
+                    required
+                    id="id_Work">
+                <option value="" selected="">---List---</option>
+                {% for item in work %}
+                    <option value="{{ item.id }}">{{ item.Type_of_work }}</option>
+                {% endfor %}
+            </select>
+        </p>
+        <p>
+            <label for="id_Performer">Executor
+                <h7><a style="color:red;">*</a></h7>
+                :</label>
+            <select name="Performer"
+                    class="form-select"
+                    style="width: 400px;"
+                    required
+                    id="id_Performer">
+                <option value="" selected="">---List---</option>
+                {% for item in perf %}
+                <option value="{{ item.id }}">{{ item.Full_name_of_the_performer }}</option>
+                {% endfor %}
+            </select>
+        </p>
+        <p>
+            <label for="id_Comment" class="form-label">Comment from the performer:</label>
+            <textarea name="Comment"
+                      class="form-control"
+                      style="width: 500px; resize: none;"
+                      cols="50"
+                      rows="3"
+                      style="resize:none;"
+                      maxlength="150"
+                      id="id_Comment"
+                      placeholder="Enter a comment"></textarea>
+        </p>
+        <p>
+            <label for="{{ form.Files.id_form_label }}">File upload:</label>
+            <input type="file"
+                   class="form-control"
+                   style="width: 500px;"
+                   name="Files"
+                   id="{{ form.Files.id_form_label }}">
+        </p>
+        <p>
+            <label for="id_Condition">Status of the request<h7><a style="color:red;">*</a></h7>:</label>
+            <select name="Condition"
+                    class="form-select"
+                    style="width: 200px;"
+                    required=""
+                    id="id_Condition">
+                <option value="" selected="">---List---</option>
+                {% for item in condition %}
+                    <option value="{{ item.id }}">{{ item.Condition }}</option>
+                {% endfor %}
+            </select>
+        </p>
+        <button type="submit"
+                class="btn btn-primary"
+                style="width: 100px;">
+                Add
+        </button>
+        <div style="height: 30px;"></div>
+    </form>
+</div>
+{% endblock %}

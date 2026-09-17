@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ru">
+<head>
+
+    <link rel="icon" href="/media/static/img/favicon.ico" sizes="any"/>
+    <link rel="manifest" href="media/static/img/site.webmanifest">
+    <meta name="theme-color" content="#FFFFFF">
+
+    <link href="/media/static/css/login/bootstrap-login.min.css" rel="stylesheet">
+    <link href="/media/static/css/login/login-style.css" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Request tracking</title>
+</head>
+<body class="body">
+    <p class="text-center">
+        <form class="form-signin" action="" method="POST">
+            {% csrf_token %}
+            <img src="/media/static/files/logo/tusur-login.png"
+                 style="align: center; margin-left: -125%; margin-top: -125%;">
+            <div style="font-size: 14px; font-weight: bold;">
+                Login
+            </div>
+            <input type="text"
+                   id="id_username"
+                   class="form-control"
+                   name="username"
+                   autocomplete="off">
+            <br>
+            <div style="font-size: 14px; font-weight: bold;">
+                Password
+            </div>
+            <input type="password"
+                   id="id_password"
+                   class="form-control"
+                   name="password"
+                   autocomplete="off">
+            <br>
+            <button class="btn btn-lg btn-primary btn-block"
+                    type="submit"
+                    style="margin-left: 30%;">
+                Enter
+            </button>
+        </form>
+    </div>
+</body>
+</html>

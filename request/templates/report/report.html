@@ -1,0 +1,110 @@
+{% extends 'base/base.html' %}
+{% block content %}
+<link rel="stylesheet" href="/media/static/css/report/jquery.datetimepicker.min.css">
+<link rel="stylesheet" href="/media/static/css/report/jquery-ui.css">
+<script src="/media/static/js/report/jquery-3.3.1.slim.min.js"></script>
+<script src="/media/static/js/report/jquery-3.6.0.js"></script>
+<script src="/media/static/js/report/jquery-ui.js"></script>
+<script src="/media/static/js/report/jquery.datetimepicker.full.min.js"></script>
+<style>
+    table tr { border-color: #000000; }
+    tbody tr:nth-child(even) { background:#DCDCDC; }
+    tbody tr:nth-child(odd) { color:black; }
+</style>
+<script>
+jQuery.datetimepicker.setLocale('ru');
+  $(function () {
+    $("#id_start_date").datetimepicker({
+      format:'d/m/Y H:i',
+    });
+});
+</script>
+<script>
+jQuery.datetimepicker.setLocale('ru');
+  $(function () {
+    $("#id_end_date").datetimepicker({
+      format: 'd/m/Y H:i',
+    });
+});
+</script>
+<script>
+$( function() {
+    $( "#id_Lecture_hall" ).autocomplete({
+        source: "{% url 'autocomplete_lec' %}",
+    });
+});
+</script>
+<br>
+<div class="mx-3">
+    {% csrf_token %}
+    <h2>Creating reports in Excel</h2>
+    <br>
+    <h6 style="color: #808080;">Enter the required parameters:</h6>
+    <br>
+    <form method="get">
+        <p>
+            <label for="id_Lecture_hall">Office:</label>
+            <input type="text"
+                   name="Lecture_hall"
+                   id="id_Lecture_hall"
+                   class="form-control"
+                   style="width: 200px;"
+                   maxlength="10"
+                   placeholder="Office number">
+        </p>
+        <p>
+            <label for="id_Work">Type of work carried out:</label>
+            <select name="Work"
+                    id="id_Work"
+                    class="form-select"
+                    style="width: 400px;">
+                <option value="" selected="">---List---</option>
+                {% for item in work %}
+                    <option value="{{ item.id }}">{{ item.Type_of_work }}</option>
+                {% endfor %}
+            </select>
+        </p>
+        <p>
+            <label for="id_Performer">Executor:</label>
+            <select name="Performer"
+                    id="id_Performer"
+                    class="form-select"
+                    style="width: 400px;">
+                <option value="" selected="">---List---</option>
+                {% for item in perf %}
+                    <option value="{{ item.id }}">{{ item.Full_name_of_the_performer }}</option>
+                {% endfor %}
+            </select>
+        </p>
+        <p>
+            <label for="id_start_date">From the date:</label>
+            <input type="text"
+                   name="start_date"
+                   id="id_start_date"
+                   class="form-control"
+                   autocomplete="off"
+                   maxlength="20"
+                   style="width: 200px;"
+                   placeholder="Select a date and time.">
+        </p>
+        <p>
+            <label for="id_end_date">Up to the date:</label>
+            <input type="text"
+                   name="end_date"
+                   id="id_end_date"
+                   class="form-control"
+                   autocomplete="off"
+                   maxlength="20"
+                   style="width: 200px;"
+                   placeholder="Select a date and time.">
+        </p>
+        <br>
+        <p>
+            <form>
+                <button type="submit" class="btn btn-primary" formaction="{% url 'export_excel' %}">Create</button>
+            </form>
+        </p>
+        <div style="height: 30px;"></div>
+    </form>
+</div>
+{% endblock %}

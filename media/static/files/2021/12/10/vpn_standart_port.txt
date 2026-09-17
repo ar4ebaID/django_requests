@@ -1,0 +1,6 @@
+Batternet — Catapult Hydra VPN (протокол) — По умолчанию 500/UDP
+Lantern — 
+X-VPN — x-vpn (протокол) — 25/TCP или 587/TCP без использования шифрования, 465/TCP с использованием SSL/TLS.
+Cloudflare warp vpn — WireGuard (протокол) — По умолчанию 51820/UDP.
+Tachyon vpn —  Tachyon (протокол) — UDP, TCP, HTTP, HTTPS, FTP, SMTP
+PrivateTunnel — OpenVPN (протокол) — По умолчанию 1194/UDP.
