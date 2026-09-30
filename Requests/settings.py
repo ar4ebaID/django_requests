@@ -128,10 +128,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Redirect to home URL after login (Default redirects to /accounts/profile/)
 LOGIN_REDIRECT_URL = "/"
 
-# Celery settings
-CELERY_BROKER_URL = "redis://localhost:6379"
-CELERY_RESULT_BACKEND = "redis://localhost:6379"
-
 # Telegram settings
 TOKEN_BOT = '8629042031:AAEb_BIjtkBGlTGkdZrpGCGj_v7pp4l3K8U'
 CHAT_ID = '-1003769159049'
